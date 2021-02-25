@@ -4,25 +4,33 @@ import Form from "./Components/Form";
 import {Map} from 'immutable';
 import { nanoid } from "nanoid";
 
+
 class App extends Component {
   constructor(){
     super();
+
     this.state={
       notes: Map()
     }
 
     this.addNote = this.addNote.bind(this);
+    // this.deleteNote = this.deleteNote.bind(this);
   }
   
+  // deleteNote(id) {
+  //   this.setState(prevState => ({
+  //     notes: prevState.notes.delete(id),
+  //   }));
+  // }
 
   addNote(subject) {
+    console.log("DDDDDDD");
     var newNote = {title: subject, text: "", x: 0, y: 0};
-    //create an id
-    const mapNote = Map(newNote);
-    let key = "id " + nanoid();
-    
-    const newerMap = this.state.notes.set(key, mapNote);
-    
+    var key = "id " + nanoid();
+
+    this.setState(prevState => ({
+      notes: prevState.notes.set(key, newNote)
+    }));
   }
 
   render() {
@@ -30,10 +38,6 @@ class App extends Component {
       <div>
         <div>
           <Form addNote={this.addNote}/>
-        </div>
-
-        <div>
-
         </div>
       </div>
     );
